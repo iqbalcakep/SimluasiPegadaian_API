@@ -11,13 +11,21 @@ class Reguler extends REST_Controller {
         $this->load->model('Reguler_model');
         $up = $this->post('up');
         $tenor = $this->post('tenor');
-        $new=$this->Reguler_model->getSewaModal($up,$tenor);
+        $dataPinjaman=$this->Reguler_model->getSewaModal($up,$tenor);
 
-        $this->response($new, 200);
+        $sewaModal=($dataPinjaman[0]->sm_reg/100)*$up;
+        $biayaAdmin = ($dataPinjaman[0]->biaya_admin/100)*$up;
+        $angsuran = ($up / $tenor)+$sewaModal;
 
-        // $this->response(array(
-        //     "total"=>"nafiganteng",
-        //     "total2" => 200
-        // ), 200);
+        // $this->response($new, 200);
+        $this->response(array(
+            "pinjaman"=>$up,
+            "sewa"=>$sewaModal,
+            "biayaAdmin" => $biayaAdmin,
+            "prsModal"=>$dataPinjaman[0]->sm_reg.'%',
+            "prsAdmin"=>$dataPinjaman[0]->biaya_admin.'%',
+            "angsuran"=>round($angsuran),
+            "tenor"=>$tenor,
+        ), 200);
     }
 }

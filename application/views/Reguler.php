@@ -14,11 +14,12 @@
 					<option value="36">36 Bulan</option>
 				</select>
 			</div>
-			<button type="submit" class="btn btn-primary">Submit</button>
+			<button type="submit" onclick="" class="btn btn-primary">Submit</button>
 		</form>
 		<p id="angsuran_out"></p>
 	</div>
 </section>
+<script src="<?php echo base_url('') ?>/assets/js/vendor/jquery.min.js"></script>
 <script>
 	function findAngsuran()
 	{
@@ -57,4 +58,44 @@
 		
 		return total;
 	}
+
+	function getAngsuran(){
+    $.ajax({
+        type  : 'ajax',
+        url   : 'http://localhost/SimluasiPegadaian_API/index.php/reguler',
+        async : false,
+        dataType : 'json',
+        success : function(data){
+            var htmls = '';
+            var s;
+            for(s=0; s<data.length; s++){
+                htmls += '<tr>'+
+                      '<td>'+(s+1)+'</td>'+
+                        '<td>'+data[s].nama+'</td>'+
+                        '<td>'+new Intl.NumberFormat().format(data[s].transaksi)+'</td>'+
+                        '<td>'+new Intl.NumberFormat().format(data[s].biaya)+'</td>'+
+                        '</tr>';
+            }
+            $('#show_data2').html(htmls);
+        }
+    });
+
+
+	function getAngsuran(){
+		var pinjaman = document.getElementById('pinjaman_input').value;
+		var tenor = document.getElementById('tenor_input').value;
+   		$.ajax({
+	  	type: "POST",
+	  	url: url,
+	  	data: {up:pinjaman, tenor:tenor},
+	  	dataType: 'json',
+	  	success : function(data){
+            //$('#show_data2').html(htmls);
+            alert("Data: " + data[0].tenor + "\nStatus: " + status);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+     	alert("some error");
+		});
+	}
+
 </script>
