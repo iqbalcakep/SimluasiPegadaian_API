@@ -22,8 +22,8 @@ class Reguler extends REST_Controller {
             "pinjaman"=>$up,
             "sewaModal"=>$sewaModal,
             "biayaAdmin" => $biayaAdmin,
-            "prsModal"=>$dataPinjaman[0]->sm_reg.'%',
-            "prsAdmin"=>$dataPinjaman[0]->biaya_admin.'%',
+            "prsModal"=>$dataPinjaman[0]->sm_reg,
+            "prsAdmin"=>$dataPinjaman[0]->biaya_admin,
             "angsuran"=>round($angsuran),
             "tenor"=>$tenor,
         ), 200);
