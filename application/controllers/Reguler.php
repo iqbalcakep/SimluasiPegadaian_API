@@ -13,14 +13,14 @@ class Reguler extends REST_Controller {
         $tenor = $this->post('tenor');
         $dataPinjaman=$this->Reguler_model->getSewaModal($up,$tenor);
 
-        $sewaModal=($dataPinjaman[0]->sm_reg/100)*$up;
+        $sewaModal=($up*$dataPinjaman[0]->sm_reg)/100;
         $biayaAdmin = ($dataPinjaman[0]->biaya_admin/100)*$up;
         $angsuran = ($up / $tenor)+$sewaModal;
 
         // $this->response($new, 200);
         $this->response(array(
             "pinjaman"=>$up,
-            "sewa"=>$sewaModal,
+            "sewaModal"=>$sewaModal,
             "biayaAdmin" => $biayaAdmin,
             "prsModal"=>$dataPinjaman[0]->sm_reg.'%',
             "prsAdmin"=>$dataPinjaman[0]->biaya_admin.'%',
