@@ -16,17 +16,25 @@ class Reguler extends REST_Controller {
 
         $sewaModal=($up*$dataPinjaman[0]->sm_reg)/100;
         $biayaAdmin = ($dataPinjaman[0]->biaya_admin/100)*$up;
-        $angsuran = ($up / $tenor)+$sewaModal;
+        $angReal = ($up / $tenor)+$sewaModal;
+        $angPokok = $up / $tenor;
 
         // $this->response($new, 200);
         $this->response(array(
             "pinjaman"=>$up,
             "sewaModal"=>$sewaModal,
+            "angsuranPokok"=>$angPokok,
             "biayaAdmin" => $biayaAdmin,
             "prsModal"=>$dataPinjaman[0]->sm_reg,
             "prsAdmin"=>$dataPinjaman[0]->biaya_admin,
-            "angsuran"=>round($angsuran),
+            "angsuran"=>round($angReal),
             "tenor"=>$tenor,
+        ), 200);
+    }
+    function index_get() {
+        // $this->response($new, 200);
+        $this->response(array(
+            "status"=>"nafi ganteng"
         ), 200);
     }
 }
