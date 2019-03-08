@@ -1,7 +1,7 @@
 <?php
  
 require APPPATH . '/libraries/REST_Controller.php';
- 
+header("Access-Control-Allow-Origin: *"); 
 class FleksiSekaliBayar extends REST_Controller {
     function __construct($config = 'rest') {
         parent::__construct($config);
@@ -19,11 +19,13 @@ class FleksiSekaliBayar extends REST_Controller {
         $totalbayar = $up+$totadm+$totsm;
 
         $this->response(array(
-            "sewa_model" => $sm,
-            "administrasi" => $adm,
-            "total_sm" => $totsm,
-            "total_adm" => $totadm,
-            "total_bayar" => $totalbayar
+            "pinjaman"=>$up,
+            "sewaModal"=>$totsm,
+            "biayaAdmin" => $totadm,
+            "prsModal"=>$sm,
+            "prsAdmin"=>$adm,
+            "angsuran"=>round($totalbayar),
+            "tenor"=>$tenor,
         ), 200);
     }
 

@@ -1,6 +1,7 @@
 <?php
  
 require APPPATH . '/libraries/REST_Controller.php';
+header("Access-Control-Allow-Origin: *"); 
  
 class Reguler extends REST_Controller {
     function __construct($config = 'rest') {
